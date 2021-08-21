@@ -1,0 +1,50 @@
+body {
+  height: 200px; 
+  width: 300px; 
+  border-radius: 10px; 
+}
+
+.entire-switch {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.state {
+  text-align: center;
+}
+
+input {
+  display: none; 
+}
+
+.switch-btn {
+    cursor: pointer; 
+    width: 80px; 
+    height: 40px; 
+    background: lightgray; 
+    position: relative; 
+    border-radius: 20px; 
+    box-shadow: inset 0 10px 10px grey; 
+  }
+  
+  .switch-btn:before{
+    /*above seems to store the circle inside*/
+    content: ""; 
+    position: absolute; 
+    height: 36px; 
+    width: 36px; 
+    background: white; 
+    left: 2px; 
+    top: 2px; 
+    transition: all 250ms ease-out; 
+    border-radius: 18px; 
+  }
+  
+  input[type=checkbox]:checked + .switch-btn:before {
+    left: 42px;
+  }
+  
+  input[type=checkbox]:checked + .switch-btn {
+    background: lightgreen; 
+  }
