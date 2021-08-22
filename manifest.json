@@ -60,6 +60,7 @@
     "default_title": "My First Chrome Extension"
   }, 
   "permissions": [
-    "tabs"
+    "tabs", 
+    "storage"
   ]
 }

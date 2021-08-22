@@ -28,23 +28,32 @@ input {
     box-shadow: inset 0 10px 10px grey; 
   }
   
-  .switch-btn:before{
-    /*above seems to store the circle inside*/
-    content: ""; 
-    position: absolute; 
-    height: 36px; 
-    width: 36px; 
-    background: white; 
-    left: 2px; 
-    top: 2px; 
-    transition: all 250ms ease-out; 
-    border-radius: 18px; 
-  }
-  
-  input[type=checkbox]:checked + .switch-btn:before {
-    left: 42px;
-  }
-  
-  input[type=checkbox]:checked + .switch-btn {
-    background: lightgreen; 
-  }
+.switch-btn:before{
+  /*above seems to store the circle inside*/
+  content: ""; 
+  position: absolute; 
+  height: 36px; 
+  width: 36px; 
+  background: white; 
+  left: 2px; 
+  top: 2px; 
+  transition: all 250ms ease-out; 
+  border-radius: 18px; 
+}
+
+input[type=checkbox]:checked + .switch-btn:before {
+  left: 42px;
+}
+
+input[type=checkbox]:checked + .switch-btn {
+  background: lightgreen; 
+}
+
+/*whenever needed to disable all transistions*/
+.disable-transition{
+  background-color: red !important; 
+  -webkit-transition: none !important;
+  -moz-transition: none !important; 
+  -o-transition: none !important;
+  transition: none !important;
+}

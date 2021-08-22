@@ -203,7 +203,8 @@ let ALLOWED = false;
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-      ALLOWED = request.allowed; 
+      ALLOWED = !ALLOWED; 
+      sendResponse({ALLOWED: ALLOWED});
     }
 );
 
