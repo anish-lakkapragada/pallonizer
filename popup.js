@@ -1,11 +1,10 @@
-let ALLOW = false; 
+let allow = false; 
 
 $(() => {
     $("#input-check").click(() => {
-        ALLOW = !ALLOW; // invert 
+        allow = !allow;
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {allowed: allow}, function(response) {});
+          });
     })
-    fs.writeFile("./answer.dat", ALLOW ? "true" : "false", (err) => {
-        if (err) throw err;
-    }); 
-
-})
+}); 

@@ -51,13 +51,15 @@
         "memes/image21.jpeg",
         "memes/ddf41a5a49ed21d3c46620acead27437.jpg",
         "memes/1SoA2-16rMISDOF3OGNjWiA.jpeg",
-        "memes/1SPJDe05__KFLjHWd8za2xQ.jpeg", 
-        "main.js"]
+        "memes/1SPJDe05__KFLjHWd8za2xQ.jpeg"]
     }
   ],
   "browser_action": {
     "default_icon": "image.png",
     "default_popup": "popup.html",
     "default_title": "My First Chrome Extension"
-  }
+  }, 
+  "permissions": [
+    "tabs"
+  ]
 }
