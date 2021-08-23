@@ -1,7 +1,8 @@
 const checkElement = document.getElementById("input-check");
 const button = document.getElementsByClassName("switch-btn")[0];
 
-// we'll use synchronous localStorage 
+// we'll use synchronous localStorage instead of async chrome storage
+
 const checked = localStorage.getItem("checked");
 if (checked === null) {
     update(false);
