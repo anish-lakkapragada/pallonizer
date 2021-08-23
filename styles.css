@@ -37,8 +37,12 @@ input {
   background: white; 
   left: 2px; 
   top: 2px; 
-  transition: all 250ms ease-out; 
   border-radius: 18px; 
+  transition: var(--transition); 
+}
+
+.switch-btn:after{
+  transition: var(--transition);
 }
 
 input[type=checkbox]:checked + .switch-btn:before {
@@ -50,10 +54,10 @@ input[type=checkbox]:checked + .switch-btn {
 }
 
 /*whenever needed to disable all transistions*/
-.disable-transition{
-  background-color: red !important; 
+.disable-transition * {
   -webkit-transition: none !important;
-  -moz-transition: none !important; 
+  -moz-transition: none !important;
   -o-transition: none !important;
+  -ms-transition-property: none !important;
   transition: none !important;
 }
