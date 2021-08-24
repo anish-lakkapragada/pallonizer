@@ -62,5 +62,9 @@
   "permissions": [
     "tabs", 
     "storage"
-  ]
+  ], 
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
 }

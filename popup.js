@@ -32,6 +32,13 @@ $(() => {
                 console.log(window.getComputedStyle(button, "::before").transition);
                 console.log(window.getComputedStyle(button, "::after").transition); 
                 update(response.ALLOWED);
+                console.log(`respon'se allowed property is ${response.ALLOWED}`);
+                console.log(`response's reload property is ${response.RELOAD}`);
+                if (response.ALLOWED == false) {
+                    console.log("reloading"); 
+                    chrome.tabs.reload(tabs[0].id);
+                    console.log("reloaded"); 
+                }
             });
         });
     })
