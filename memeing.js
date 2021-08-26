@@ -161,7 +161,7 @@ function getMeme(image) {
     return memes[Math.floor(Math.random() * memes.length)] + "?" + "height=" + image.height + "&width=" + image.width;
 }
 
-let numCapacity = 500;
+let numCapacity = 100;
 
 function run(images) {
 
@@ -203,7 +203,9 @@ function run(images) {
 
 let ALLOWED = null; 
 chrome.runtime.sendMessage({update:null}, (response) => {
-    ALLOWED = response.memezAllowed; 
+    console.log(response);
+    ALLOWED = response.memezAllowed;
+    console.log(`this is allowed from content script ${ALLOWED}`);  
 }); 
 
 chrome.runtime.onMessage.addListener(
@@ -219,6 +221,8 @@ chrome.runtime.onMessage.addListener(
                 run(objects);
             }
             sendResponse({ ALLOWED:ALLOWED});
+            
+            // now you need to tell background.js that hey we changed it dude 
         }
         else {
             // if it's not allowed, then we need to rewrite everything on the page right? 
@@ -230,6 +234,7 @@ chrome.runtime.onMessage.addListener(
         
         // update this by sending this to background.js 
         chrome.runtime.sendMessage({update:ALLOWED}); 
+        console.log("sent message, where is this going?"); 
     }
 );
 

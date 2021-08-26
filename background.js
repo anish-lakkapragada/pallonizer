@@ -21,17 +21,19 @@ const memezAllowed = () => {
     return true;
 }
 
-chrome.runtime.onMessage.addEventListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
     // in the case that they want to see if memez are allowed on run
     if (request.update == null) {
+        console.log(`new tab just opened, this is memez status : ${memezAllowed()}`); 
         sendResponse({
-            allowed: memezAllowed()
+            memezAllowed: memezAllowed()
         });
     }
 
     // in the case that they want to update the value of memezAllowed
     else {
+        console.log("oop update"); 
         localStorage.setItem("memezAllowed", request.update);
         // no response sent back 
     }
