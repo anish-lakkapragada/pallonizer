@@ -8,6 +8,8 @@ How this works:
 
 console.log("dang"); 
 
+let numCapacity = 500; // only allowed to change 500 images 
+
 const memezAllowed = () => {
     const cachedAllowed = localStorage.getItem("memezAllowed");
     if (cachedAllowed == null) {
@@ -34,8 +36,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // in the case that they want to update the value of memezAllowed
     else {
         console.log("oop update"); 
-        localStorage.setItem("memezAllowed", request.update);
-        // no response sent back 
+        let update = request.update;
+        numCapacity -= request.used; 
+        if (numCapacity <= 0) {
+            update = false; 
+            console.log('TOO MUCH BOY'); 
+        }
+        localStorage.setItem("memezAllowed", update);
     }
     
 }); 

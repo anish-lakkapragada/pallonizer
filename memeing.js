@@ -161,26 +161,25 @@ function getMeme(image) {
     return memes[Math.floor(Math.random() * memes.length)] + "?" + "height=" + image.height + "&width=" + image.width;
 }
 
-let numCapacity = 100;
+let numChanged = 0;
 
 function run(images) {
 
     for (let i = 0; i < images.length; i++) {
-        if (numCapacity == 0) { break; }
         if (images[i].hasAttribute("added")) { continue; }
 
         // has src 
         if (images[i].hasAttribute("src")) {
             images[i].setAttribute('src', getMeme(images[i]));
             images[i].setAttribute("added", true);
-            numCapacity--;
+            numChanged++;
         }
 
         // no src
         else {
             images[i].setAttribute('src', getMeme(images[i]));
             images[i].setAttribute("added", true);
-            numCapacity--;
+            numChanged++;
         }
 
         // remove all the weird stuff 
@@ -195,7 +194,7 @@ function run(images) {
             }
         }
 
-        console.log(`new threshold: ${numCapacity}`);
+        console.log(`num used: ${numChanged}`);
     }
 }
 
@@ -233,8 +232,9 @@ chrome.runtime.onMessage.addListener(
         }
         
         // update this by sending this to background.js 
-        chrome.runtime.sendMessage({update:ALLOWED}); 
+        chrome.runtime.sendMessage({update:ALLOWED, used:numChanged}); 
         console.log("sent message, where is this going?"); 
+        numChanged = 0; // reset this counter 
     }
 );
 
