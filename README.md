@@ -1,6 +1,6 @@
 # memez
 
-This is a fun chrome extension that turns all images, videos, and iframes on the current screen to memes! We select a random spicy meme, format it to your screen (ok fine, we use MemeGen API for this), and then replace the bland image with something more spicy (memes lmao)!
+This is a fun chrome extension that turns all images, videos, and iframes on the current screen to memes! We select a random meme, format it to your screen (ok fine, we use MemeGen API for this), and then replace an image! 
 
 Non-spicy page without memes: 
 
