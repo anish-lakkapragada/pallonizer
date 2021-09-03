@@ -4,7 +4,7 @@ This is a fun chrome extension that turns all images, videos, and iframes on the
 
 Non-spicy page without memes: 
 
-<img src = "bland.png" width = "50%>
+<img src = "bland.png" width = "50%">
 
 Spicy 🌶️🌶️🌶️  Page with dank memes: 
 
