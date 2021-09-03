@@ -7,7 +7,7 @@
     {
       "matches": ["<all_urls>"], 
       "run_at": "document_idle", 
-      "js": ["memeing.js"], 
+      "js": ["src/memeing.js"], 
       "web_accessible_resources" : ["memes/EegSVtOXkAAcI_l.jpg",
         "memes/1U_mJ4Yq7pUctpFYwlx1u0g.jpeg",
         "memes/3631977dd6322e9a3f2c315aa209af03.jpg",
@@ -52,12 +52,12 @@
         "memes/ddf41a5a49ed21d3c46620acead27437.jpg",
         "memes/1SoA2-16rMISDOF3OGNjWiA.jpeg",
         "memes/1SPJDe05__KFLjHWd8za2xQ.jpeg", 
-        "popup.html"]
+        "src/popup.html"]
     }
   ],
   "browser_action": {
     "default_icon": "image.png",
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_title": "My First Chrome Extension"
   }, 
   "permissions": [
