@@ -4,9 +4,11 @@ This is a fun chrome extension that turns all images, videos, and iframes on the
 
 Non-spicy page without memes: 
 
+<img src = "bland.png">
 
 Spicy Page with dank memes: 
 
+<img src = "spicy.png">
 
 The memes are not guaranteed to be PG, but none of them are extremely explicit. All are very funny!
 
