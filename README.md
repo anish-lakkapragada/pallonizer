@@ -8,7 +8,7 @@ Non-spicy page without memes:
 
 **SPICY 🌶️🌶️🌶️  PAGE WITH DANK MEMES**: 
 
-<img src = "spicy.png>
+<img src = "spicy.png">
 
 The memes are not guaranteed to be PG, but none of them are extremely explicit. All are very funny!
 
