@@ -6,7 +6,7 @@ Non-spicy page without memes:
 
 <img src = "bland.png"> 
 
-Spicy 🌶️🌶️🌶️  Page with dank memes: 
+**SPICY 🌶️🌶️🌶️  PAGE WITH DANK MEMES**: 
 
 <img src = "spicy.png>
 
