@@ -1,35 +1,25 @@
-/*
-
-How this works: 
-- content script on first run for any tab sends message to this backgrounds cript 
-- background script fetches the current value of whether it's allowed and returns it to memeing.js contnet script  
-- also run onInstallled method over here 
-*/
-
 console.log("dang"); 
 
 let numCapacity = 500; // only allowed to change 500 images 
 
-const memezAllowed = () => {
+function memezAllowed() {
     const cachedAllowed = localStorage.getItem("memezAllowed");
     if (cachedAllowed == null) {
-        return false; 
-    }
-    else if (cachedAllowed == false) {
-        localStorage.setItem("memezAllowed", false);
+        localStorage.setItem("memezAllowed",false);
         return false; 
     }
 
-    return true;
+    return localStorage.getItem("memezAllowed");
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
     // in the case that they want to see if memez are allowed on run
     if (request.update == null) {
+        console.log(localStorage.getItem("memezAllowed")); 
         console.log(`new tab just opened, this is memez status : ${memezAllowed()}`); 
         sendResponse({
-            memezAllowed: memezAllowed()
+            memeTime: memezAllowed()
         });
     }
 
@@ -42,7 +32,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             update = false; 
             console.log('TOO MUCH BOY'); 
         }
+        console.log(`We settin update to ${update}`); 
         localStorage.setItem("memezAllowed", update);
+        sendResponse({SUCCESS: true}); 
+        console.log("sent succesful response"); 
+        console.log(localStorage.getItem("memezAllowed")); 
     }
     
 }); 

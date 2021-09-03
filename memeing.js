@@ -161,10 +161,73 @@ function getMeme(image) {
     return memes[Math.floor(Math.random() * memes.length)] + "?" + "height=" + image.height + "&width=" + image.width;
 }
 
+/*function getMeme(image) {
+    const memes = ["memes/EegSVtOXkAAcI_l.jpg",
+        "memes/1U_mJ4Yq7pUctpFYwlx1u0g.jpeg",
+        "memes/3631977dd6322e9a3f2c315aa209af03.jpg",
+        "memes/1x7P7gqjo8k2_bj2rTQWAfg.jpeg",
+        "memes/images108.jpg",
+        "memes/images109.jpg",
+        "memes/image15.jpeg",
+        "memes/.DS_Store",
+        "memes/frabz-Machine-Learning-What-society-thinks-I-do-What-my-friends-thinks-f0e58e.jpg",
+        "memes/5492729e07afde68c228f0ff9c8f3010654e2274.jpg",
+        "memes/image19.jpeg",
+        "memes/1qHbAsMNmdWQJkzm2SUA-8w.jpeg",
+        "memes/1KBobA-DaVtQ8Px6P_-tNqQ.jpeg",
+        "memes/images92.jpg",
+        "memes/1864b1422cbb8e522323595da137cbba.jpg",
+        "memes/images80.jpg",
+        "memes/images95.jpg",
+        "memes/e908a1f684568f1fbd4370ed2e81a2a0.jpg",
+        "memes/5177603.jpg",
+        "memes/DV1bfUrVoAAsgz3.jpg",
+        "memes/1TOCkiI_kCupxW-0jmi1p6g.jpeg",
+        "memes/1nkvi6rLzJP3vjANAPwbk9A.jpeg",
+        "memes/52386901_10157143758983669_1120348777576660992_o.jpg",
+        "memes/image30.jpeg",
+        "memes/1_e4_ptjctmaofsrpzczbv-g-1.jpeg",
+        "memes/1jy7DT6-R_xXvZKvz-_-n7g.jpeg",
+        "memes/images77.jpg",
+        "memes/118823936_1170125176699612_3119017095284167246_n.jpg",
+        "memes/16GaYzyQ2IP4bS4r70IaktA.jpeg",
+        "memes/E3OEwuMWUAwfU1I.jpg",
+        "memes/images102.jpg",
+        "memes/images103.jpg",
+        "memes/image20.jpeg",
+        "memes/EL5H5X1WoAEp3Z8.jpg",
+        "memes/amP6xZd_460s.jpg",
+        "memes/image16.jpeg",
+        "memes/images115.jpg",
+        "memes/images114.jpg",
+        "memes/DVp9DgKUMAAj0Zc.jpg",
+        "memes/images104.jpg",
+        "memes/image21.jpeg",
+        "memes/ddf41a5a49ed21d3c46620acead27437.jpg",
+        "memes/1SoA2-16rMISDOF3OGNjWiA.jpeg",
+        "memes/1SPJDe05__KFLjHWd8za2xQ.jpeg"]
+    return chrome.runtime.getURL(memes[Math.floor(Math.random() * memes.length)]);
+}*/
+
 let numChanged = 0;
 
-function run(images) {
 
+// get ALLOWED parameter that's initially set to false
+
+let ALLOWED = false;
+chrome.runtime.sendMessage({update:null}, (response) => {
+    console.log(response);
+    ALLOWED = (response.memeTime === "true");
+    console.log(`this is allowed from content script ${ALLOWED}`);  
+}); 
+
+function run(images) {
+    console.log(ALLOWED); 
+    console.log(`inside run function, this is allowed: ${ALLOWED} and ${!ALLOWED} and ${ALLOWED == true} and ${ALLOWED == false}`); 
+    if (!ALLOWED) {
+        console.log("ALLOWED is false, rbeaking out"); 
+        return; 
+    }
     for (let i = 0; i < images.length; i++) {
         if (images[i].hasAttribute("added")) { continue; }
 
@@ -198,20 +261,23 @@ function run(images) {
     }
 }
 
-// get ALLOWED parameter that's initially set to false
-
-let ALLOWED = null; 
-chrome.runtime.sendMessage({update:null}, (response) => {
-    console.log(response);
-    ALLOWED = response.memezAllowed;
-    console.log(`this is allowed from content script ${ALLOWED}`);  
-}); 
-
 chrome.runtime.onMessage.addListener(
     // listen for messages from the popup
-    function (request, sender, sendResponse) {
+    async function (request, sender, sendResponse) {
         ALLOWED = !ALLOWED;
         sendResponse({ ALLOWED: ALLOWED });
+
+        // update this by sending this to background.js 
+        let SUCCESS = null; 
+        await new Promise((resolve, reject) => {
+            chrome.runtime.sendMessage({update:ALLOWED, used:numChanged}, function (response) {
+                SUCCESS = response.SUCCESS; 
+                if (SUCCESS) console.log("damn we resolve"); resolve();
+                console.log(`response.SUCCESS IS ${response.SUCCESS}`); 
+            });
+  
+        });
+
         if (ALLOWED) {
             //re-run for fun 
             const changeObjects = ['img', 'source', 'video', 'iframe'];
@@ -219,31 +285,35 @@ chrome.runtime.onMessage.addListener(
                 let objects = document.getElementsByTagName(changeObjects[o]);
                 run(objects);
             }
-            sendResponse({ ALLOWED:ALLOWED});
+            sendResponse({ ALLOWED:ALLOWED, SUCCESS:SUCCESS});
             
             // now you need to tell background.js that hey we changed it dude 
         }
+
         else {
             // if it's not allowed, then we need to rewrite everything on the page right? 
             // honestly we can just reload the page here 
             console.log("aight need to reload"); 
-            sendResponse({ALLOWED:ALLOWED}); 
+            console.log(`This is success ${SUCCESS}`);
+            sendResponse({ALLOWED:ALLOWED,SUCCESS:SUCCESS}); 
             console.log("sent reload"); 
         }
         
-        // update this by sending this to background.js 
-        chrome.runtime.sendMessage({update:ALLOWED, used:numChanged}); 
+        console.log(`this is sucess at the end ${SUCCESS}`);
         console.log("sent message, where is this going?"); 
         numChanged = 0; // reset this counter 
     }
 );
 
 document.addEventListener("DOMNodeInserted", (event) => {
-    if (!ALLOWED) { return; }
-    const changeObjects = ['img', 'source', 'video', 'iframe'];
-    for (let o = 0; o < changeObjects.length; o++) {
-        let objects = document.getElementsByTagName(changeObjects[o]);
-        run(objects);
+    console.log(`This is allowed ${ALLOWED}`);
+    if (ALLOWED) {
+        console.log(`Allowed is this ${ALLOWED} and we are running`); 
+        const changeObjects = ['img', 'source', 'video', 'iframe'];
+        for (let o = 0; o < changeObjects.length; o++) {
+            let objects = document.getElementsByTagName(changeObjects[o]);
+            run(objects);
+        }
     }
 })
 
