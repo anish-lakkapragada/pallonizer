@@ -1,5 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+* {
+  font-family: 'Bangers';
+  font-size: 30px;
+}
+
+#header {
+  text-align: center;
+}
+#toggle-text {
+  font-size: 20px; 
+  text-align: center;
+}
+
 body {
-  height: 200px; 
+  height: 250px; 
   width: 300px; 
   border-radius: 10px; 
 }

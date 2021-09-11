@@ -1,41 +1,76 @@
+console.log("starting");
 const checkElement = document.getElementById("input-check");
 const button = document.getElementsByClassName("switch-btn")[0];
 
-// we'll use synchronous localStorage instead of async chrome storage
+let checked; // whether to toggle the switch buton 
 
-const checked = localStorage.getItem("checked");
-if (checked === null) {
-    update(false);
-}
-if (checked == "true") {
-    checkElement.checked = true;
-}
-else {
-    checkElement.checked = false;
-}
+chrome.storage.sync.set({"firstCheck":"N/A"});
 
-function update(checked) {
-    console.log(`checked is ${checked}`); 
-    localStorage.setItem("checked", checked);
-    checkElement.checked = checked;
+async function update(newValue) {
+    // update the chrome storage and wait until it is updated. 
+    await new Promise((resolve, reject) => {
+        chrome.storage.sync.set({"memeTime":newValue}, () => {
+            resolve(); 
+        }); 
+    }); 
 }
 
-console.log(`About to set property, checkElement is ${checkElement.checked}`);
-button.style.setProperty('--transition', 'all 250ms ease-in-out'); 
-console.log('set it!'); 
+async function bootUp() {
+    await new Promise((resolve, reject) => {
+        chrome.storage.sync.get(["memeTime"], (result) => {
+            checked = result.memeTime; // it's actually stored as a boolean, thanks extension storage
+
+            console.log("dang we in here"); 
+            if (checked == undefined) {
+                console.log("it undefined, so we running this"); 
+                checked = false; 
+                update(false); 
+            }
+            resolve(); 
+        }); 
+    })
+
+    await new Promise((resolve, reject) => {
+        if (checked) {
+            console.log("I am going to check this"); 
+            checkElement.checked = true;
+            checkedTrue = true; 
+        }
+        resolve(); 
+    }); 
+
+    await new Promise((resolve, reject) => {
+        chrome.storage.sync.set({"firstCheck":"done"}, () => {
+            resolve(); 
+        }); 
+    }); 
+
+    console.log("we did all these things!"); 
+
+}
+
+bootUp(); // load it up 
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    console.log("we got a change");
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+        // check if key is memeTime 
+        if (key === "firstCheck") {
+            console.log("we have a nice change"); 
+            if (newValue === "done") {
+                button.style.setProperty("--transition", "all 0.3s ease-in-out");
+            }
+        }
+    }
+});
+
 
 $(() => {
     $("#input-check").click(() => {
-        console.log('time to send message to memeing.js'); 
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+
+        /*chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {}, function (response) {
-                console.log(window.getComputedStyle(button).getPropertyValue("--transition"));
-                console.log(window.getComputedStyle(button, "::before").transition);
-                console.log(window.getComputedStyle(button, "::after").transition); 
                 update(response.ALLOWED);
-                console.log(`respon'se allowed property is ${response.ALLOWED}`);
-                console.log(`response's reload property is ${response.RELOAD}`);
-                console.log(`reposnse's success propoerty is ${response.SUCCESS}`);
                 
                 if (response.ALLOWED == false) {
                     console.log("reloading"); 
@@ -43,6 +78,10 @@ $(() => {
                     console.log("reloaded"); 
                 }
             });
-        });
+        });*/ 
+
+        checked = !checked;
+        update(checked);
+        
     })
 })

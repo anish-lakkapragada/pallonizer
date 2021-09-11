@@ -1,58 +1,13 @@
 {
   "manifest_version": 2, 
   "name": "memez", 
-  "description": "", 
-  "version": "0.69", 
+  "description": "A fun chrome extension to turn images and videos on the page to memez!", 
+  "version": "10.01", 
   "content_scripts" : [
     {
       "matches": ["<all_urls>"], 
       "run_at": "document_idle", 
-      "js": ["src/memeing.js"], 
-      "web_accessible_resources" : ["memes/EegSVtOXkAAcI_l.jpg",
-        "memes/1U_mJ4Yq7pUctpFYwlx1u0g.jpeg",
-        "memes/3631977dd6322e9a3f2c315aa209af03.jpg",
-        "memes/1x7P7gqjo8k2_bj2rTQWAfg.jpeg",
-        "memes/images108.jpg",
-        "memes/images109.jpg",
-        "memes/image15.jpeg",
-        "memes/.DS_Store",
-        "memes/frabz-Machine-Learning-What-society-thinks-I-do-What-my-friends-thinks-f0e58e.jpg",
-        "memes/5492729e07afde68c228f0ff9c8f3010654e2274.jpg",
-        "memes/image19.jpeg",
-        "memes/1qHbAsMNmdWQJkzm2SUA-8w.jpeg",
-        "memes/1KBobA-DaVtQ8Px6P_-tNqQ.jpeg",
-        "memes/images92.jpg",
-        "memes/1864b1422cbb8e522323595da137cbba.jpg",
-        "memes/images80.jpg",
-        "memes/images95.jpg",
-        "memes/e908a1f684568f1fbd4370ed2e81a2a0.jpg",
-        "memes/5177603.jpg",
-        "memes/DV1bfUrVoAAsgz3.jpg",
-        "memes/1TOCkiI_kCupxW-0jmi1p6g.jpeg",
-        "memes/1nkvi6rLzJP3vjANAPwbk9A.jpeg",
-        "memes/52386901_10157143758983669_1120348777576660992_o.jpg",
-        "memes/image30.jpeg",
-        "memes/1_e4_ptjctmaofsrpzczbv-g-1.jpeg",
-        "memes/1jy7DT6-R_xXvZKvz-_-n7g.jpeg",
-        "memes/images77.jpg",
-        "memes/118823936_1170125176699612_3119017095284167246_n.jpg",
-        "memes/16GaYzyQ2IP4bS4r70IaktA.jpeg",
-        "memes/E3OEwuMWUAwfU1I.jpg",
-        "memes/images102.jpg",
-        "memes/images103.jpg",
-        "memes/image20.jpeg",
-        "memes/EL5H5X1WoAEp3Z8.jpg",
-        "memes/amP6xZd_460s.jpg",
-        "memes/image16.jpeg",
-        "memes/images115.jpg",
-        "memes/images114.jpg",
-        "memes/DVp9DgKUMAAj0Zc.jpg",
-        "memes/images104.jpg",
-        "memes/image21.jpeg",
-        "memes/ddf41a5a49ed21d3c46620acead27437.jpg",
-        "memes/1SoA2-16rMISDOF3OGNjWiA.jpeg",
-        "memes/1SPJDe05__KFLjHWd8za2xQ.jpeg", 
-        "src/popup.html"]
+      "js": ["src/memeing.js"]
     }
   ],
   "browser_action": {
@@ -61,10 +16,6 @@
     "default_title": "My First Chrome Extension"
   }, 
   "permissions": [
-    "tabs"
-  ], 
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  }
+    "storage"
+  ]
 }
