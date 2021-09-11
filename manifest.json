@@ -1,8 +1,13 @@
 {
   "manifest_version": 2, 
   "name": "memez", 
+<<<<<<< HEAD
   "description": "A fun chrome extension to turn images and videos on the page to memez!", 
   "version": "10.01", 
+=======
+  "description": "", 
+  "version": "69.420", 
+>>>>>>> 5175972aeaf0c81a9c044911ae6ac57c08539339
   "content_scripts" : [
     {
       "matches": ["<all_urls>"], 
@@ -16,6 +21,15 @@
     "default_title": "My First Chrome Extension"
   }, 
   "permissions": [
+<<<<<<< HEAD
     "storage"
   ]
+=======
+    "tabs"
+  ], 
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
+  }
+>>>>>>> 5175972aeaf0c81a9c044911ae6ac57c08539339
 }
