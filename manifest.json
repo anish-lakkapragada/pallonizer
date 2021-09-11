@@ -2,7 +2,7 @@
   "manifest_version": 2, 
   "name": "memez", 
   "description": "", 
-  "version": "0.69", 
+  "version": "69.420", 
   "content_scripts" : [
     {
       "matches": ["<all_urls>"], 
@@ -64,7 +64,7 @@
     "tabs"
   ], 
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["src/background.js"],
     "persistent": false
   }
 }
