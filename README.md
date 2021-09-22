@@ -1,6 +1,6 @@
-# memez
+# pallonizer
 
-This is a fun chrome extension that turns all images, videos, and iframes on the current screen to memes! We select a random meme, format it to your screen (ok fine, we use MemeGen API for this), and then replace an image! 
+This is a fun chrome extension that turns all images, videos, and iframes on the current screen to pallone memes (from the r/pallone subreddit)! We select a random meme, format it to your screen (ok fine, we use Reddit's API for this), and then replace an image! 
 
 Non-spicy page without memes: 
 
@@ -8,8 +8,6 @@ Non-spicy page without memes:
 
 **SPICY 🌶️🌶️🌶️  PAGE WITH DANK MEMES**: 
 
-<img src = "spicy.png">
-
-The memes are not guaranteed to be PG, but none of them are extremely explicit. All are very funny!
+<img src = "dank.png">
 
 This project was also meant to give me an introduction in to building chrome extensions and working with HTML, CSS, and most importantly JavaScript (awesome language, btw). 
