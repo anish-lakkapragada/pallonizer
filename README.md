@@ -8,6 +8,6 @@ Non-spicy page without memes:
 
 **SPICY 🌶️🌶️🌶️  PAGE WITH DANK MEMES**: 
 
-<img src = "dank.png">
+<img src = "dank.jpg">
 
 This project was also meant to give me an introduction in to building chrome extensions and working with HTML, CSS, and most importantly JavaScript (awesome language, btw). 
