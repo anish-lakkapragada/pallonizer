@@ -1,6 +1,6 @@
 # pallonizer
 
-This is a fun chrome extension that turns all images, videos, and iframes on the current screen to pallone memes (from the r/pallone subreddit)! We select a random meme, format it to your screen (ok fine, we use Reddit's API for this), and then replace an image! 
+This is a fun chrome extension that turns all images, videos, and iframes on the current screen to pallone memes (from the r/pallone subreddit)! We select a random meme, format it to your screen with Reddit API, and then replace an image! 
 
 Non-spicy page without memes: 
 
